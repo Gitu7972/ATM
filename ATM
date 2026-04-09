@@ -1,0 +1,62 @@
+#include <stdio.h>
+
+int main() {
+    int correct_pin = 2107;
+    int entered_pin;
+    int balance = 10000;
+    int attempts = 0;
+    int max_attempts = 3;
+    int choice, amount;
+
+    while (attempts < max_attempts) {
+        printf("Enter your ATM PIN: ");
+        scanf("%d", &entered_pin);
+
+        if (entered_pin == correct_pin) {
+            printf("Login Successful\n");
+
+            while (1) {
+                printf("\n--- ATM MENU ---\n");
+                printf("1. Check Balance\n");
+                printf("2. Withdraw Money\n");
+                printf("3. Exit\n");
+                printf("Enter your choice: ");
+                scanf("%d", &choice);
+
+                if (choice == 1) {
+                    printf("Your Balance is: %d\n", balance);
+                }
+                else if (choice == 2) {
+                    printf("Enter amount to withdraw: ");
+                    scanf("%d", &amount);
+
+                    if (amount <= balance) {
+                        balance -= amount;
+                        printf("Withdrawal Successful\n");
+                        printf("Remaining Balance: %d\n", balance);
+                    } else {
+                        printf("Insufficient Balance\n");
+                    }
+                }
+                else if (choice == 3) {
+                    printf("Thank you for using ATM\n");
+                    break;
+                }
+                else {
+                    printf("Invalid Choice\n");
+                }
+            }
+            break;
+        }
+        else {
+            attempts++;
+            printf("Wrong PIN! Attempts left: %d\n", max_attempts - attempts);
+        }
+    }
+
+    if (attempts == max_attempts) {
+        printf("ATM Card Blocked due to 3 wrong attempts!\n");
+    }
+
+    return 0;
+}
